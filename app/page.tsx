@@ -1,65 +1,82 @@
-import Image from "next/image";
+"use client";
+import { useEffect, useState } from "react";
+import GridBackground from "../components/GridBackground";
+import Link from "next/link";
 
 export default function Home() {
+  const [step, setStep] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+
+  const introLines = [
+    "ESTABLISHING SECURE CONNECTION...",
+    "HANDSHAKE VERIFIED: POST OFFICE BLACKSITE",
+    "ACCESSING REDDINGTON'S ARCHIVE",
+    "WARNING: CLASSIFIED MATERIALS AHEAD",
+    "WELCOME TO THE BLACKLIST.",
+  ];
+
+  useEffect(() => {
+    if (step < introLines.length) {
+      let i = 0;
+      const fullText = introLines[step];
+      const timer = setInterval(() => {
+        setDisplayText(fullText.slice(0, i));
+        i++;
+        if (i > fullText.length) {
+          clearInterval(timer);
+          setTimeout(() => {
+            setStep((s) => s + 1);
+          }, 1000);
+        }
+      }, 30);
+      return () => clearInterval(timer);
+    }
+  }, [step]);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="fixed inset-0 z-100 bg-[#0a0a0a] flex flex-col items-center justify-center p-6 text-center">
+      <GridBackground />
+
+      {/* Background Silhouette */}
+      <div className="absolute inset-0 z-0 flex items-center justify-center opacity-10">
+        <h1 className="impact-headline text-[30vw] text-[#C41E3A] select-none">
+          Blacklist
+        </h1>
+      </div>
+
+      <div className="relative z-10 space-y-8 max-w-2xl">
+        <div className="mono-body text-xs md:text-sm text-[#708090] tracking-widest uppercase animate-pulse">
+          Secure Terminal // Session Active
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="h-24 flex items-center justify-center">
+          <h2 className="mono-body text-lg md:text-2xl text-[#F5F5DC] italic h-full flex items-center">
+            {displayText}
+            <span className="inline-block w-2 h-6 bg-[#C41E3A] ml-2 animate-pulse"></span>
+          </h2>
         </div>
-      </main>
+
+        {step >= introLines.length && (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-1000">
+            <Link
+              href="/dossier"
+              className="group relative bg-transparent border-2 border-[#C41E3A] text-[#C41E3A] px-12 py-5 impact-headline text-3xl md:text-5xl transition-all hover:bg-[#C41E3A] hover:text-[#F5F5DC] shadow-[0_0_30px_rgba(196,30,58,0.2)]"
+            >
+              <span className="relative z-10">ENTER THE BLACKLIST</span>
+              <div className="absolute inset-0 bg-[#C41E3A] scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+            </Link>
+            <p className="mt-12 mono-body text-[10px] text-[#708090] uppercase tracking-[0.4em]">
+              Authorization Required // Level 4 Clearance
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* Decorative Corners */}
+      <div className="absolute top-10 left-10 w-20 h-20 border-t-2 border-l-2 border-[#2F4F4F]/30"></div>
+      <div className="absolute top-10 right-10 w-20 h-20 border-t-2 border-r-2 border-[#2F4F4F]/30"></div>
+      <div className="absolute bottom-10 left-10 w-20 h-20 border-b-2 border-l-2 border-[#2F4F4F]/30"></div>
+      <div className="absolute bottom-10 right-10 w-20 h-20 border-b-2 border-r-2 border-[#2F4F4F]/30"></div>
     </div>
   );
 }
