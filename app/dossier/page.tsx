@@ -1,27 +1,8 @@
 "use client";
 import { blacklistData } from "@/blacklist-data";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-
-interface Member {
-  number: string;
-  name: string;
-  status: string;
-}
 
 const Page = () => {
-  const [selectedMember, setSelectedMember] = useState(
-    blacklistData.members[0]
-  );
-
-  const handleSelectMember = (number: string) => {
-    const member = blacklistData.members.find((m) => m.number === number);
-    if (member) {
-      setSelectedMember(member);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  };
-
   return (
     <div className="relative min-h-screen bg-[#0a0a0a] py-20 px-6 md:px-12 lg:px-24">
       <div className="relative z-10 mb-16 text-center">
@@ -39,7 +20,7 @@ const Page = () => {
           <Link
             href={`/dossier/${member.number}`}
             key={member.number}
-            className="group relative aspect-3/4 bg-[#1a1a1a] border border-[#2F4F4F]/30 overflow-hidden transition-all duration-500 hover:border-[#C41E3A] hover:shadow-[0_0_30px_rgba(196,30,58,0.2)]"
+            className="group relative aspect-[3/4] bg-[#1a1a1a] border border-[#2F4F4F]/30 overflow-hidden transition-all duration-500 hover:border-[#C41E3A] hover:shadow-[0_0_30px_rgba(196,30,58,0.2)]"
           >
             {/* Mugshot Image */}
             <img
@@ -49,7 +30,7 @@ const Page = () => {
             />
 
             {/* Overlay Layers */}
-            <div className="absolute inset-0 bg-linear-to-t from-[#0a0a0a] via-transparent to-transparent opacity-80"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-80"></div>
 
             {/* Large Number Background */}
             <div className="absolute inset-0 flex items-center justify-center opacity-10 transition-opacity group-hover:opacity-20">

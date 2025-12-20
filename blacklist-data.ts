@@ -1,3 +1,5 @@
+import { BlacklistMember } from "@/type";
+
 export const blacklistData = {
   title: "The Blacklist Members Chart",
   source: "The Blacklist Wiki & Series Data",
@@ -152,5 +154,5 @@ export const blacklistData = {
       episode_revealed: "The Hyena",
       description: "Sean Fenwick. A ruthless treasure hunter.",
     },
-  ],
+  ] as BlacklistMember[],
 };
