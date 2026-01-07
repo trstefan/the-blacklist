@@ -1,5 +1,6 @@
 "use client";
 import { blacklistData } from "@/blacklist-data";
+import Image from "next/image";
 import Link from "next/link";
 
 const Page = () => {
@@ -20,17 +21,24 @@ const Page = () => {
           <Link
             href={`/dossier/${member.number}`}
             key={member.number}
-            className="group relative aspect-[3/4] bg-[#1a1a1a] border border-[#2F4F4F]/30 overflow-hidden transition-all duration-500 hover:border-[#C41E3A] hover:shadow-[0_0_30px_rgba(196,30,58,0.2)]"
+            className="group relative aspect-3/4 bg-[#1a1a1a] border border-[#2F4F4F]/30 overflow-hidden transition-all duration-500 hover:border-[#C41E3A] hover:shadow-[0_0_30px_rgba(196,30,58,0.2)]"
           >
-            {/* Mugshot Image */}
-            <img
-              src={`https://picsum.photos/seed/${member.number}/600/800?grayscale`}
-              alt={member.name}
-              className="w-full h-full object-cover opacity-50 grayscale contrast-125 transition-all duration-700 group-hover:scale-110 group-hover:opacity-80 group-hover:mix-blend-luminosity"
-            />
+           {/* Mugshot Image */}
+      <Image
+        src={
+    member.image
+      ? member.image
+      : "/placeholderCase.jpg"
+  }
+  alt={member.name}
+  className="w-full h-full object-cover opacity-50 grayscale contrast-125 transition-all duration-700 group-hover:scale-110 group-hover:opacity-80 group-hover:mix-blend-luminosity"
+  width={600}
+  height={800}
+/>
+
 
             {/* Overlay Layers */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-80"></div>
+            <div className="absolute inset-0 bg-linear-to-t from-[#0a0a0a] via-transparent to-transparent opacity-80"></div>
 
             {/* Large Number Background */}
             <div className="absolute inset-0 flex items-center justify-center opacity-10 transition-opacity group-hover:opacity-20">

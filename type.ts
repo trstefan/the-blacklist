@@ -4,6 +4,6 @@ export interface BlacklistMember {
   name: string;
   status: BlacklistStatus;
   episode_revealed: string;
+  image: string;
   description: string;
 }
-

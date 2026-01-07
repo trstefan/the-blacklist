@@ -5,6 +5,7 @@ interface Member {
   number: string;
   name: string;
   status: string;
+  image:string
   episode_revealed: string;
   description: string;
 }
